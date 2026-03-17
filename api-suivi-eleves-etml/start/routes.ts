@@ -8,9 +8,12 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import StudentsController from '#controllers/students_controller'
 
 router.get('/', async () => {
   return {
-    hello: 'world',
+    hello: 'API is working',
   }
 })
+
+router.resource('students', StudentsController).apiOnly()
