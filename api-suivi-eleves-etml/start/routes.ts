@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import StudentsController from '#controllers/students_controller'
+import TeachersController from '#controllers/teachers_controller'
 
 router.get('/', async () => {
   return {
@@ -17,3 +18,4 @@ router.get('/', async () => {
 })
 
 router.resource('students', StudentsController).apiOnly()
+router.resource('teachers', TeachersController).apiOnly()
