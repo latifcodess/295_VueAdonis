@@ -2,8 +2,13 @@
 import Factory from '@adonisjs/lucid/factories'
 import Teacher from '#models/teacher'
 export const TeacherFactory = Factory.define(Teacher, async ({ faker }) => {
+  
+  const name = faker.person.lastName()
+  const firstname = faker.person.firstName()
+
   return {
-    name: faker.person.lastName(),
-    firstname: faker.person.firstName(),
+    name: name,
+    firstname: firstname,
+    email: faker.internet.email({ firstName: firstname.toLowerCase(), lastName: name.toLowerCase(), provider: 'latif.codes' })
   }
 }).build()

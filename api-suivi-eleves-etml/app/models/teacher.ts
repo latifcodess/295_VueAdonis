@@ -16,6 +16,9 @@ export default class Teacher extends BaseModel {
   @column()
   declare firstname: string
 
+  @column()
+  declare email: string
+
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 }
