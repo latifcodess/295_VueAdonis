@@ -7,7 +7,7 @@ export default class ClassGroupsController {
    * Display a list of resource
    */
   async index({}: HttpContext) {
-    return ClassGroup.query().orderBy('id')
+    return ClassGroup.query().preload('teacher').orderBy('id')
   }
 
   /**
@@ -20,9 +20,9 @@ export default class ClassGroupsController {
    */
   async store({ request, response }: HttpContext) {
     // Récupération des données envoyées par le client et validation des données
-    const { name } = await request.validateUsing(classGroupValidator)
+    const { name, teacherId } = await request.validateUsing(classGroupValidator)
     // Création d'un nouvel élève avec les données validées
-    const classGroup = await ClassGroup.create({ name })
+    const classGroup = await ClassGroup.create({ name, teacherId })
     // On utilise `response.created` pour retourner un code HTTP 201 avec les données de l'élève créé
     return response.created(classGroup)
   }
@@ -31,7 +31,12 @@ export default class ClassGroupsController {
    * Show individual record
    */
   async show({ params }: HttpContext) {
-    return ClassGroup.findOrFail(params.id)
+    const classGroup = await ClassGroup.query()
+      .preload('teacher')
+      .where('id', params.id)
+      .firstOrFail()
+
+      return classGroup
   }
 
   /**
@@ -44,11 +49,11 @@ export default class ClassGroupsController {
    */
   async update({ params, request }: HttpContext) {
     // Récupération des données
-    const { name } = await request.validateUsing(classGroupValidator)
+    const { name, teacherId } = await request.validateUsing(classGroupValidator)
     // Vérification de l'existence de l'élève
     const classGroup = await ClassGroup.findOrFail(params.id)
     // Mise à jour des données de l'élève
-    classGroup.merge({ name })
+    classGroup.merge({ name, teacherId })
     // Sauvegarde des modifications
     await classGroup.save()
     // Retour le json de l'élève mis à jour

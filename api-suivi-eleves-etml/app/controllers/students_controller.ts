@@ -7,7 +7,7 @@ export default class StudentsController {
    * Display a list of resource
    */
   async index({}: HttpContext) {
-    return Student.query().orderBy('id')
+    return Student.query().preload('classGroup').orderBy('id')
   }
 
   /**
