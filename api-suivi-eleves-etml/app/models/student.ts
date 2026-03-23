@@ -13,7 +13,6 @@ export default class Student extends BaseModel {
   @column()
   declare classGroupId: number
 
-  // Relation : 1 classe → 1 enseignant
   @belongsTo(() => ClassGroup)
   declare classGroup: BelongsTo<typeof ClassGroup>
 
