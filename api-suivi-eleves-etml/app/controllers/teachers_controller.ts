@@ -16,14 +16,14 @@ export default class TeachersController {
   async create({}: HttpContext) {}
 
   /**
-   * Handle form submission for the create action
+   * Créer un nouvel enseignant
    */
   async store({ request, response }: HttpContext) {
     // Récupération des données envoyées par le client et validation des données
-    const { name, firstname } = await request.validateUsing(teacherValidator)
-    // Création d'un nouvel élève avec les données validées
-    const teacher = await Teacher.create({ name, firstname })
-    // On utilise `response.created` pour retourner un code HTTP 201 avec les données de l'élève créé
+    const { name, firstname, email, userId } = await request.validateUsing(teacherValidator)
+    // Création d'un nouvel enseignant avec les données validées
+    const teacher = await Teacher.create({ name, firstname, email, userId })
+    // On utilise `response.created` pour retourner un code HTTP 201 avec les données de l'enseignant créé
     return response.created(teacher)
   }
 
