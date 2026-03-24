@@ -20,7 +20,7 @@ export default class Student extends BaseModel {
   // Relation : 1 élève -> N commentaires
   @hasMany(() => Comment)
   declare comments: HasMany<typeof Comment>
-  
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column.dateTime({ autoCreate: true, autoUpdate: true })

@@ -11,13 +11,13 @@ export default class CommentSeeder extends BaseSeeder {
     await Comment.createMany([
       {
         content: 'Très bon travail sur le dernier trimestre.',
-        studentId: 1,
-        teacherId: 1,
+        studentId: student.id,
+        teacherId: teacher.id,
       },
       {
         content: 'En constante amélioration !',
-        studentId: 1,
-        teacherId: 1,
+        studentId: student.id,
+        teacherId: teacher.id,
       },
     ])
   }

@@ -6,30 +6,26 @@
 | The routes file is used for defining the HTTP routes.
 |
 */
-
 import router from '@adonisjs/core/services/router'
 import StudentsController from '#controllers/students_controller'
 import TeachersController from '#controllers/teachers_controller'
 import ClassGroupsController from '#controllers/class_groups_controller'
 import CommentsController from '#controllers/comments_controller'
-
-router.get('/', async () => {
-  return {
-    hello: 'API is working',
-  }
+// Route de test
+router.get('test', async () => {
+  return 'API is working!'
 })
-
-// route CRUD students
+// Routes pour le CRUD /students
 router.resource('students', StudentsController).apiOnly()
-
-// route CRUD comments
-router.group(() => {
-  router.resource('comments', CommentsController).apiOnly()
-})
-.prefix('students/:students_id')
-
-// route CRUD teachers
+// Routes imbriquées sur les commentaires
+// pour le CRUD /students/:student_id/comments
+router
+  .group(() => {
+    router.resource('comments', CommentsController).apiOnly()
+  })
+  .prefix('students/:student_id')
+// Routes pour le CRUD /teachers
 router.resource('teachers', TeachersController).apiOnly()
 
-// route CRUD class_groups
-router.resource('class_groups', ClassGroupsController).apiOnly()
+// Routes pour le CRUD /classGroup
+router.resource('classGroups', ClassGroupsController).apiOnly()

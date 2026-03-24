@@ -23,6 +23,7 @@ export default class Teacher extends BaseModel {
   @hasMany(() => ClassGroup)
   declare classGroups: HasMany<typeof ClassGroup>
 
+  // Relation : 1 enseignant → N commentaires
   @hasMany(() => Comment)
   declare comments: HasMany<typeof Comment>
 
