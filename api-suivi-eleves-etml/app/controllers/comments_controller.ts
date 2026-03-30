@@ -1,5 +1,6 @@
 import Comment from '#models/comment'
 import Student from '#models/student'
+import CommentPolicy from '#policies/comment_policy'
 import { commentValidator } from '#validators/comment'
 import type { HttpContext } from '@adonisjs/core/http'
 export default class CommentsController {
@@ -55,7 +56,7 @@ export default class CommentsController {
   /**
    * Mettre à jour le commentaire de l'élève student_id
    */
-  async update({ params, request, response }: HttpContext) {
+  async update({ params, request, response, bouncer }: HttpContext) {
     // Récupération des données envoyées par le client et validation des données
     const { content } = await request.validateUsing(commentValidator)
     // Vérifie que le commentaire appartient bien à l'élève
@@ -63,6 +64,13 @@ export default class CommentsController {
       .where('id', params.id)
       .where('student_id', params.student_id)
       .firstOrFail()
+    // Vérifie les permissions de l'utilisateur connecté
+    if (await bouncer.with(CommentPolicy).denies('update', comment)) {
+      return response.unauthorized({
+        message:
+          "Vous n'êtes pas l'auteur de ce commentaire. Vous n'avez pas le droit de le modifier",
+      })
+    }
     // Mise à jour
     comment.content = content
     await comment.save()

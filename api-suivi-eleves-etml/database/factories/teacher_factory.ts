@@ -1,6 +1,9 @@
 // database/factories/student.ts
 import Factory from '@adonisjs/lucid/factories'
 import Teacher from '#models/teacher'
+
+let caca = 1;
+
 export const TeacherFactory = Factory.define(Teacher, async ({ faker }) => {
   
   const name = faker.person.lastName()
@@ -9,6 +12,7 @@ export const TeacherFactory = Factory.define(Teacher, async ({ faker }) => {
   return {
     name: name,
     firstname: firstname,
-    email: faker.internet.email({ firstName: firstname.toLowerCase(), lastName: name.toLowerCase(), provider: 'latif.codes' })
+    email: faker.internet.email({ firstName: firstname.toLowerCase(), lastName: name.toLowerCase(), provider: 'latif.codes' }),
+    userId: caca++
   }
 }).build()
