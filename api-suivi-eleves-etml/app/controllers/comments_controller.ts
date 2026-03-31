@@ -80,14 +80,22 @@ export default class CommentsController {
   /**
    * Supprimer le commentaire de l'élève student_id
    */
-  async destroy({ params, response }: HttpContext) {
+  async destroy({ params, response, bouncer }: HttpContext) {
+    // Récupère le commentaire à supprimer
     const comment = await Comment.query()
       .where('id', params.id)
       .where('student_id', params.student_id)
       .firstOrFail()
+    // Vérifie les permissions de l'utilisateur connecté
+    if (await bouncer.with(CommentPolicy).denies('delete', comment)) {
+      return response.unauthorized({
+        message:
+          "Vous n'êtes pas l'auteur de ce commentaire. Vous n'avez pas le droit de le supprimer",
+      })
+    }
     // Suppression du commentaire
     await comment.delete()
-    // On utilise `response.noContent` pour retourner un code HTTP 204 sans contenu
+    // On utilise `response.noContent` pour retourner un code HTTP 204 sanscontenu
     return response.noContent()
   }
 }
