@@ -1,0 +1,16 @@
+meta {
+  name: Get one teacher
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url}}/teachers/2
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

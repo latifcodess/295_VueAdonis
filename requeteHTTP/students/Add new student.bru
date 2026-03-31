@@ -1,0 +1,23 @@
+meta {
+  name: Add new student
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url}}/students
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Sottas",
+    "firstname": "David"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

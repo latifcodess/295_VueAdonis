@@ -1,0 +1,15 @@
+meta {
+  name: Get all students
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url}}/students
+  body: none
+  auth: inherit
+}
+
+docs {
+  This request retrieves a list of users from the JSONPlaceholder API.
+}

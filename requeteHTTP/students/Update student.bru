@@ -1,0 +1,23 @@
+meta {
+  name: Update student
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{url}}/students/2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Cali",
+    "firstname": "David"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

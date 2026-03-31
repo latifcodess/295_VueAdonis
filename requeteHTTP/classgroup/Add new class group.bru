@@ -1,0 +1,22 @@
+meta {
+  name: Add new class group
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{url}}/class_groups
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "SEGPA"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

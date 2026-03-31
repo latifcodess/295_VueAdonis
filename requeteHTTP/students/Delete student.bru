@@ -1,0 +1,16 @@
+meta {
+  name: Delete student
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{url}}/students/13
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

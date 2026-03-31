@@ -1,0 +1,23 @@
+meta {
+  name: Add new teacher
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{url}}/teachers
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Kose",
+    "firstname": "Phile"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
